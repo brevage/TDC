@@ -24,6 +24,29 @@
     </div>
   </div>
 
+  <script>
+    // Global error handler to catch and display any JS errors
+    window.onerror = function(msg, src, line, col, err) {
+      var app = document.getElementById('app');
+      if (app) {
+        app.innerHTML = '<div style="padding:20px;color:#f44;font-family:monospace">' +
+          '<h2 style="color:#f44">JS Error</h2>' +
+          '<p>' + msg + '</p>' +
+          '<p>File: ' + src + '</p>' +
+          '<p>Line: ' + line + ', Col: ' + col + '</p>' +
+          '<pre>' + (err && err.stack ? err.stack : 'No stack') + '</pre></div>';
+      }
+      return false;
+    };
+    window.addEventListener('unhandledrejection', function(e) {
+      var app = document.getElementById('app');
+      if (app) {
+        app.innerHTML += '<div style="padding:10px;color:#fa0;font-family:monospace">' +
+          '<p>Unhandled Promise: ' + e.reason + '</p></div>';
+      }
+    });
+  </script>
+
   <!-- State Management -->
   <script src="js/state/store.js"></script>
 
