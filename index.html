@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0f1117">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>TDC Study Pro — Georgia Truck Driving Championship</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/screens.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <div id="app">
+    <div class="text-center mt-lg">
+      <h2>Loading TDC Study Pro...</h2>
+      <p class="text-secondary mt-md">Preparing your study session</p>
+    </div>
+  </div>
+
+  <!-- State Management -->
+  <script src="js/state/store.js"></script>
+
+  <!-- Question Data -->
+  <script src="js/data/questions-safety.js"></script>
+  <script src="js/data/questions-hazmat.js"></script>
+  <script src="js/data/questions-acronyms.js"></script>
+  <script src="js/data/questions-firstaid.js"></script>
+  <script src="js/data/questions-fire.js"></script>
+  <script src="js/data/questions-security.js"></script>
+  <script src="js/data/questions-health.js"></script>
+  <script src="js/data/question-registry.js"></script>
+
+  <!-- Engines -->
+  <script src="js/engine/srs.js"></script>
+  <script src="js/engine/scoring.js"></script>
+  <script src="js/engine/quiz-engine.js"></script>
+
+  <!-- Gamification -->
+  <script src="js/gamification/levels.js"></script>
+  <script src="js/gamification/streaks.js"></script>
+  <script src="js/gamification/badges.js"></script>
+
+  <!-- UI -->
+  <script src="js/ui/router.js"></script>
+  <script src="js/ui/screens/dashboard.js"></script>
+  <script src="js/ui/screens/study.js"></script>
+  <script src="js/ui/screens/quiz.js"></script>
+  <script src="js/ui/screens/exam-sim.js"></script>
+  <script src="js/ui/screens/progress.js"></script>
+  <script src="js/ui/screens/badges-screen.js"></script>
+  <script src="js/ui/screens/settings.js"></script>
+
+  <!-- App Entry Point -->
+  <script src="js/app.js"></script>
+</body>
+</html>

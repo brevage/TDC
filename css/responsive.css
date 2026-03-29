@@ -1,0 +1,98 @@
+/* Mobile-first responsive adjustments */
+
+@media (max-width: 480px) {
+  :root {
+    --font-2xl: 1.75rem;
+    --font-3xl: 2rem;
+  }
+
+  #app {
+    padding: var(--space-sm);
+    padding-bottom: 80px;
+  }
+
+  .stat-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .stat-item {
+    padding: var(--space-sm);
+  }
+
+  .stat-value {
+    font-size: var(--font-lg);
+  }
+
+  .badges-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-sm);
+  }
+
+  .badge-card {
+    padding: var(--space-sm);
+  }
+
+  .badge-icon {
+    font-size: 1.5rem;
+  }
+
+  .question-text {
+    font-size: var(--font-md);
+  }
+
+  .option-btn {
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-sm);
+  }
+
+  .exam-question-grid {
+    grid-template-columns: repeat(8, 1fr);
+  }
+
+  .countdown-number {
+    font-size: var(--font-2xl);
+  }
+
+  .results-score {
+    font-size: 3rem;
+  }
+
+  .results-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: var(--space-md);
+  }
+
+  .btn-lg {
+    padding: 14px 24px;
+    font-size: var(--font-md);
+  }
+}
+
+@media (min-width: 601px) {
+  #app {
+    padding: var(--space-lg);
+    padding-bottom: 90px;
+  }
+}
+
+@media (min-width: 769px) {
+  #app {
+    max-width: 680px;
+  }
+
+  .badges-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .stat-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .results-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
