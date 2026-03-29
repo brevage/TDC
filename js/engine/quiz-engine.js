@@ -199,10 +199,10 @@ TDC.QuizEngine = (() => {
     return currentSession.questions[currentSession.currentIndex];
   }
 
-  function submitAnswer(questionId, userAnswer) {
+  function submitAnswer(questionId, userAnswer, displayedQuestion) {
     if (!currentSession) return null;
 
-    const question = TDC.Questions.getById(questionId);
+    const question = displayedQuestion || TDC.Questions.getById(questionId);
     if (!question) return null;
 
     const isCorrect = checkAnswer(question, userAnswer);

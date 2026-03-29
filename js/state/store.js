@@ -1,11 +1,18 @@
-// ===== Central State Store with localStorage Persistence =====
+// ===== Central State Store with localStorage Persistence + Profile System =====
 var TDC = window.TDC || {};
 window.TDC = TDC;
 
 TDC.Store = (() => {
-  const STORAGE_KEY = 'tdc-study-v1';
+  const STORAGE_PREFIX = 'tdc-study-v1-profile-';
+  const ACTIVE_PROFILE_KEY = 'tdc-active-profile';
+  const PROFILE_NAME_PREFIX = 'tdc-profile-name-';
   const SCHEMA_VERSION = 1;
   const listeners = {};
+  let activeProfile = null;
+
+  function getStorageKey() {
+    return STORAGE_PREFIX + (activeProfile || '1');
+  }
 
   function getDefaultState() {
     return {
@@ -39,12 +46,75 @@ TDC.Store = (() => {
 
   let state = getDefaultState();
 
+  // ===== Profile Management =====
+  function getActiveProfile() {
+    if (!activeProfile) {
+      activeProfile = localStorage.getItem(ACTIVE_PROFILE_KEY);
+    }
+    return activeProfile;
+  }
+
+  function selectProfile(num) {
+    activeProfile = String(num);
+    localStorage.setItem(ACTIVE_PROFILE_KEY, activeProfile);
+    load();
+  }
+
+  function getProfileName(num) {
+    return localStorage.getItem(PROFILE_NAME_PREFIX + num) || '';
+  }
+
+  function setProfileName(num, name) {
+    localStorage.setItem(PROFILE_NAME_PREFIX + num, name);
+  }
+
+  function getProfileSummaries() {
+    const summaries = [];
+    for (let i = 1; i <= 10; i++) {
+      const key = STORAGE_PREFIX + i;
+      const name = getProfileName(i);
+      let summary = { num: i, name, empty: true, level: 0, xp: 0, lastStudy: null, questionsAnswered: 0 };
+      try {
+        const raw = localStorage.getItem(key);
+        if (raw) {
+          const data = JSON.parse(raw);
+          if (data && data.profile) {
+            summary.empty = false;
+            summary.level = data.profile.level || 1;
+            summary.xp = data.profile.totalXP || 0;
+            summary.lastStudy = data.profile.lastStudyDate || null;
+            summary.questionsAnswered = data.profile.totalQuestionsAnswered || 0;
+          }
+        }
+      } catch (e) { /* empty slot */ }
+      summaries.push(summary);
+    }
+    return summaries;
+  }
+
+  function deleteProfile(num) {
+    localStorage.removeItem(STORAGE_PREFIX + num);
+    localStorage.removeItem(PROFILE_NAME_PREFIX + num);
+    if (activeProfile === String(num)) {
+      activeProfile = null;
+      localStorage.removeItem(ACTIVE_PROFILE_KEY);
+      state = getDefaultState();
+    }
+  }
+
+  function hasActiveProfile() {
+    return !!getActiveProfile();
+  }
+
+  // ===== State Persistence =====
   function load() {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+      const raw = localStorage.getItem(getStorageKey());
       if (raw) {
         const saved = JSON.parse(raw);
         state = deepMerge(getDefaultState(), saved);
+      } else {
+        state = getDefaultState();
       }
     } catch (e) {
       console.warn('Failed to load state:', e);
@@ -54,10 +124,11 @@ TDC.Store = (() => {
 
   let saveTimer = null;
   function save() {
+    if (!activeProfile) return;
     if (saveTimer) clearTimeout(saveTimer);
     saveTimer = setTimeout(() => {
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        localStorage.setItem(getStorageKey(), JSON.stringify(state));
       } catch (e) {
         console.warn('Failed to save state:', e);
       }
@@ -65,9 +136,10 @@ TDC.Store = (() => {
   }
 
   function saveNow() {
+    if (!activeProfile) return;
     if (saveTimer) clearTimeout(saveTimer);
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      localStorage.setItem(getStorageKey(), JSON.stringify(state));
     } catch (e) {
       console.warn('Failed to save state:', e);
     }
@@ -111,14 +183,12 @@ TDC.Store = (() => {
 
   function emit(event, data) {
     const parts = event.split('.');
-    // Emit exact match and parent paths
     for (let i = parts.length; i >= 1; i--) {
       const key = parts.slice(0, i).join('.');
       if (listeners[key]) {
         listeners[key].forEach(cb => cb(data));
       }
     }
-    // Emit wildcard
     if (listeners['*']) {
       listeners['*'].forEach(cb => cb(event, data));
     }
@@ -188,7 +258,6 @@ TDC.Store = (() => {
 
   function addSession(session) {
     state.sessions.push(session);
-    // Keep last 100 sessions
     if (state.sessions.length > 100) {
       state.sessions = state.sessions.slice(-100);
     }
@@ -239,13 +308,19 @@ TDC.Store = (() => {
     if (document.visibilityState === 'hidden') saveNow();
   });
 
-  // Load on init
-  load();
+  // Load active profile on init
+  activeProfile = localStorage.getItem(ACTIVE_PROFILE_KEY);
+  if (activeProfile) {
+    load();
+  }
 
   return {
     get, set, update, on, emit,
     getCard, updateCard, getCardsByPhase, getDueCards, getNewCardCount,
     getTodayStats, getTodayKey, addSession, addExamSim,
     exportState, importState, resetAll, saveNow, load,
+    // Profile methods
+    getActiveProfile, selectProfile, getProfileName, setProfileName,
+    getProfileSummaries, deleteProfile, hasActiveProfile,
   };
 })();

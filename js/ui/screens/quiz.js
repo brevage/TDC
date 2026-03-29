@@ -167,7 +167,7 @@ TDC.QuizScreen = (() => {
 
   function processAnswer(answer) {
     answered = true;
-    lastResult = TDC.QuizEngine.submitAnswer(currentQuestion.id, answer);
+    lastResult = TDC.QuizEngine.submitAnswer(currentQuestion.id, answer, currentQuestion);
 
     if (lastResult.isCorrect) {
       showCorrectFeedback();

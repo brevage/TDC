@@ -12,8 +12,22 @@ TDC.SettingsScreen = (() => {
     const settings = TDC.Store.get('settings');
     const profile = TDC.Store.get('profile');
 
+    const profileNum = TDC.Store.getActiveProfile() || '?';
+    const profileName = TDC.Store.getProfileName(profileNum) || 'Profile ' + profileNum;
+
     el.innerHTML = `
       <h2 class="mb-lg">Settings</h2>
+
+      <div class="settings-group">
+        <h3 class="mb-md">Profile</h3>
+        <div class="card card-compact flex items-center justify-between mb-md">
+          <div>
+            <div class="text-bold">${profileName}</div>
+            <div class="text-xs text-secondary">Profile #${profileNum}</div>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="TDC.App.switchProfile()">Switch Profile</button>
+        </div>
+      </div>
 
       <div class="settings-group">
         <h3 class="mb-md">Appearance</h3>
