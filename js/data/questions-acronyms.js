@@ -1,5 +1,5 @@
 // ===== Trucking Industry Acronym Questions =====
-const TDC = window.TDC || {};
+var TDC = window.TDC || {};
 window.TDC = TDC;
 
 TDC.QuestionsAcronyms = [

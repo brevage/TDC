@@ -1,5 +1,5 @@
 // ===== Settings Screen =====
-const TDC = window.TDC || {};
+var TDC = window.TDC || {};
 window.TDC = TDC;
 
 TDC.SettingsScreen = (() => {

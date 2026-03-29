@@ -1,5 +1,5 @@
 // ===== XP Scoring Engine =====
-const TDC = window.TDC || {};
+var TDC = window.TDC || {};
 window.TDC = TDC;
 
 TDC.Scoring = (() => {

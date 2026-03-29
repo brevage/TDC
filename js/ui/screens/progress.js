@@ -1,5 +1,5 @@
 // ===== Progress Screen =====
-const TDC = window.TDC || {};
+var TDC = window.TDC || {};
 window.TDC = TDC;
 
 TDC.ProgressScreen = (() => {

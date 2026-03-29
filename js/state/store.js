@@ -1,5 +1,5 @@
 // ===== Central State Store with localStorage Persistence =====
-const TDC = window.TDC || {};
+var TDC = window.TDC || {};
 window.TDC = TDC;
 
 TDC.Store = (() => {

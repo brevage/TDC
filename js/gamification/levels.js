@@ -1,5 +1,5 @@
 // ===== Level System =====
-const TDC = window.TDC || {};
+var TDC = window.TDC || {};
 window.TDC = TDC;
 
 TDC.Levels = (() => {

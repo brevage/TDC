@@ -1,5 +1,5 @@
 // ===== Main App Entry Point =====
-const TDC = window.TDC || {};
+var TDC = window.TDC || {};
 window.TDC = TDC;
 
 TDC.App = (() => {

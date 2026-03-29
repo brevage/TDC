@@ -1,5 +1,5 @@
 // ===== Fire Safety Questions =====
-const TDC = window.TDC || {};
+var TDC = window.TDC || {};
 window.TDC = TDC;
 
 TDC.QuestionsFire = [

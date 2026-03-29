@@ -1,5 +1,5 @@
 // ===== Hash-based SPA Router =====
-const TDC = window.TDC || {};
+var TDC = window.TDC || {};
 window.TDC = TDC;
 
 TDC.Router = (() => {

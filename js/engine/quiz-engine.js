@@ -1,5 +1,5 @@
 // ===== Quiz Engine: Session Management & Card Selection =====
-const TDC = window.TDC || {};
+var TDC = window.TDC || {};
 window.TDC = TDC;
 
 TDC.QuizEngine = (() => {

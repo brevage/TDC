@@ -1,5 +1,5 @@
 // ===== Study Screen (Category Selection) =====
-const TDC = window.TDC || {};
+var TDC = window.TDC || {};
 window.TDC = TDC;
 
 TDC.StudyScreen = (() => {

@@ -4,3 +4,4 @@ Table of Contents/
 *.heic
 .DS_Store
 node_modules/
+.vercel
